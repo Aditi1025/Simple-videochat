@@ -1,117 +1,9 @@
+
+/*/////////////////////////*/
+
 body{
     background-color : #212529;
 }
-
-#welcome{
-	height: 95vh;  
-	background-image: linear-gradient(to right bottom,rgb(0 0 0 / 80%),rgb(147 226 255));
-	background-size: cover;
-    background-position: top;
-    position: relative;
-}
-
-
-.text-box{
-	position: absolute;
-	top: 40%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    text-align: center;
-    
-}
-
-.heading-primary{
-    color: #fff;
-    text-transform: uppercase;
-    backface-visibility: hidden;
-    margin-bottom: 8%;
-    display: block;
-    font-weight: 400;
-    font-size: 350%;
-    /*font-size: 60px;*/
-    letter-spacing: 0.1875rem;
-    animation-name: Jump;
-    animation-duration: 2s;
-    animation-timing-function: ease-out; 
-    
-    /*animation-delay: .5s;*/
-    margin-bottom: 5%;
-
-}
-
-@keyframes Jump{
-
-    0%{
-     opacity: 0;
-     transform: translateY(-3.75rem) ;
-    }
-  
-    60%{
-      transform: translateY(1.75rem);
-    }
-    
-    100%{
-      opacity: 1;
-      transform: translate(0);
-    }
-  
-  }
-
-.btn:link, .btn:visited  
-{
- display: inline-block;
- text-transform: uppercase;
- text-decoration: none; 
- padding: 3% 8%;
- border-radius: 6.25rem;
- transition: all .2s;
-position: relative;
-}
-
-.btn:hover{
-	transform: translateY(-.1875rem);
-	box-shadow: 0 3.125rem 0.625rem rgba(0,0,0,0.2);
-}
-
-.btn:active  
-{
-transform: translateY(-.0625rem);
-}
-
-.btn-white{
-	background-color: #fff;
-	color: #777;
-}
-
-
-.btn::after{
-	content: "";
-	display: inline-block;
-	height: 100%;
-	width: 100%;
-	border-radius: 6.25rem;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
-	transition: all 0.4s;
-}
-
-.btn-white::after{
-	background-color: #fff;
-
-}
-
-.btn:hover::after{
-	transform: scaleX(1.4) scaleY(1.6);
-	opacity: 0;
-}
-
-.btn-animated{
-	animation: moveInBottom 0.8s ease-out 1.2s; /*0.75 is the delay*/
-	animation-fill-mode: backwards;
-}
-
 
 video {
     transform: rotateY(180deg); 
@@ -133,13 +25,9 @@ video {
     color: #fff;
 }
 
-.last-block{
-    text-align: center;
-}
 
 #peerVideo:hover {
-    opacity: 0.8;
-    cursor: pointer;
+    opacity: 0.5;
 }
 
 input[type=checkbox]:checked + span {
@@ -154,3 +42,31 @@ input[type=checkbox]:checked + span {
     left: 50%;
     transform: translate(-30%, -50%);
 }
+
+
+/************************** Navbar for Additonal Features **************************/
+.btn{
+    border-radius: 6.25rem;
+    position: relative;
+   }
+   
+.btn-blue{
+       background-color: #fff;
+       color: #212529;
+}
+   
+.btn:hover{
+       opacity: 0.5;
+}
+
+.last-block{
+    text-align: center;
+    overflow: hidden;
+    background-color: rgb(164, 191, 216);
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+
+
+

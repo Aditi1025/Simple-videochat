@@ -1,5 +1,5 @@
 {
-  "name": "simple-videochat-webrtc",
+  "name": "videochat-webapp",
   "version": "1.0.0",
   "description": "Video Chat between 2 people using simple-peer",
   "main": "main.js",

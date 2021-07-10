@@ -5,7 +5,8 @@ const filter = document.querySelector('#filter')
 const checkboxTheme = document.querySelector('#theme')
 let client = {}
 let currentFilter
-//get stream
+
+//get the stream
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
     .then(stream => {
         socket.emit('NewClient')
@@ -19,22 +20,45 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             event.preventDefault
         })
 
-        //used to initialize a peer
+        let videomute=document.querySelector('#mutevideo')
+        videomute.addEventListener('click', () => {
+            if(stream.getVideoTracks()[0].enabled){
+            stream.getVideoTracks()[0].enabled= !(stream.getVideoTracks()[0].enabled);
+            document.getElementById('mutevideo').innerHTML = '<i class="fas fa-video-slash"></i>';
+            }
+            else{
+            stream.getVideoTracks()[0].enabled= !(stream.getVideoTracks()[0].enabled);
+            document.getElementById('mutevideo').innerHTML = '<i class="fas fa-video"></i>';
+            }
+        }
+        )
+        
+        let audiomute=document.querySelector('#audiomute')
+        audiomute.addEventListener('click', () => {
+            if(stream.getAudioTracks()[0].enabled){
+            stream.getAudioTracks()[0].enabled= !(stream.getAudioTracks()[0].enabled);
+            document.getElementById('audiomute').innerHTML = '<i class="fas fa-microphone-slash"></i>';
+            }
+            else{
+            stream.getAudioTracks()[0].enabled= !(stream.getAudioTracks()[0].enabled);
+            document.getElementById('audiomute').innerHTML = '<i class="fas fa-microphone"></i>';
+            }
+        }
+        )
+
+        //function used to initialize a peer
         function InitPeer(type) {
             let peer = new Peer({ initiator: (type == 'init') ? true : false, stream: stream, trickle: false })
             peer.on('stream', function (stream) {
                 CreateVideo(stream)
             })
-            //This isn't working in chrome; works perfectly in firefox.
-            // peer.on('close', function () {
-            //     document.getElementById("peerVideo").remove();
-            //     peer.destroy()
-            // })
+
             peer.on('data', function (data) {
                 let decodedData = new TextDecoder('utf-8').decode(data)
                 let peervideo = document.querySelector('#peerVideo')
                 peervideo.style.filter = decodedData
             })
+
             return peer
         }
 
@@ -67,7 +91,6 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         }
 
         function CreateVideo(stream) {
-            //CreateDiv()
 
             let video = document.createElement('video')
             video.id = 'peerVideo'
@@ -76,7 +99,6 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             document.querySelector('#peerDiv').appendChild(video)
             video.play()
             let muteaudio = document.querySelector('#muteaudio')
-            //wait for 1 sec
             setTimeout(() => SendFilter(currentFilter), 1000)
 
             muteaudio.addEventListener('click', () => {
@@ -121,27 +143,11 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 checkboxTheme.addEventListener('click', () => {
   if (checkboxTheme.checked == true) {
     document.body.style.backgroundColor = '#fff'
-    /*if (document.querySelector('#muteText')) {
-              document.querySelector('#muteText').style.color = "#212529"
-          }*/
       }
       else {
           document.body.style.backgroundColor = '#212529'
-          /*if (document.querySelector('#muteText')) {
-              document.querySelector('#muteText').style.color = "#fff"
-          }*/
       }
   }
   )
 
-
-/*function CreateDiv() {
-    let div = document.createElement('div')
-    div.setAttribute('class', "centered")
-    div.id = "muteText"
-    div.innerHTML = "Click to Mute/Unmute"
-    document.querySelector('#peerDiv').appendChild(div)
-    if (checkboxTheme.checked == true)
-        document.querySelector('#muteText').style.color = "#fff"
-}*/
 
